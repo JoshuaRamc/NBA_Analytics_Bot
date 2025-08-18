@@ -1,0 +1,167 @@
+:root{
+  --bg: #ffffff;             /* clean white background */
+  --panel: #ffffff;          /* cards & bubbles stay white */
+  --line: #eaf6f6;           /* very light blue border */
+  --primary: #9ce6e6;        /* requested blue shade */
+  --primary-strong: #5acccc; /* slightly darker accent for states */
+  --muted: #5a6b73;          /* subtle text */
+  --text: #15242b;           /* main text */
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Layout */
+.app{
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: 100%;
+}
+
+/* Sidebar */
+.sidebar{
+  border-right: 1px solid var(--line);
+  background: var(--bg);
+  padding: 22px 18px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.brand{
+  display:flex; align-items:center; gap:12px;
+  padding:10px 12px;
+  background: var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+.brand__logo{
+  width:36px; height:36px; display:grid; place-items:center;
+  background: #f7ffff;
+  border:1px solid var(--primary);
+  border-radius:10px;
+}
+.brand__name{ font-weight:700; letter-spacing:0.2px; }
+.brand__name span{ color: var(--primary-strong); }
+
+.panel{
+  background: var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+}
+.panel__title{ font-weight:600; margin-bottom:10px; }
+.sample-list{
+  list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;
+}
+.sample-list__item{
+  display:flex; align-items:flex-start; gap:10px;
+  padding:10px 10px;
+  border:1px dashed var(--line);
+  border-radius:12px;
+  background: #fcffff;
+  transition: border-color .15s, background-color .15s;
+  cursor: pointer;
+}
+.sample-list__item:hover{
+  border-color: var(--primary);
+  background: #f8ffff;
+}
+.dot{
+  min-width:8px; height:8px; border-radius:50%;
+  margin-top:6px;
+  background: var(--primary-strong);
+}
+
+/* Sidebar footer panel */
+.panel--foot{ margin-top:auto; }
+.hint{ font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+/* Chat area */
+.chat{ display:flex; flex-direction:column; height:100%; }
+.chat__header{
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+  background: #ffffff;
+}
+.chat__title{ font-size:18px; font-weight:700; }
+.chat__sub{ font-size:13px; color:var(--muted); margin-top:2px; }
+
+/* Messages */
+.chat__messages{
+  flex:1;
+  overflow:auto;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.msg{
+  display:flex; gap:12px; align-items:flex-start; max-width:900px;
+}
+.msg--user{ margin-left:auto; flex-direction: row-reverse; }
+.msg__avatar{
+  width:36px; height:36px; border-radius:50%;
+  display:grid; place-items:center;
+  background: #f7ffff;
+  border:1px solid var(--line);
+  font-size:18px;
+}
+.msg__avatar--assistant{ border-color: var(--primary); }
+.msg__avatar--user{ border-color: var(--line); }
+
+.msg__bubble{
+  padding:14px 16px;
+  background: var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  line-height:1.55;
+}
+.msg--user .msg__bubble{
+  background: #faffff;
+  border-color: #d9f3f3;
+}
+.msg__text{ margin:0 0 8px 0; }
+
+/* Chart card */
+.chart-card{
+  margin-top:6px;
+  background: #ffffff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+.chart-card__title{
+  font-size:13px; color:var(--muted);
+  padding:10px 12px;
+  border-bottom:1px solid var(--line);
+  background: #ffffff;
+}
+.chart-card__wrap{ padding:8px 12px 6px; }
+
+/* Input */
+.chat-input{
+  display:flex; gap:10px; padding:14px; border-top:1px solid var(--line);
+  background: #ffffff;
+}
+.chat-input__field{
+  flex:1; padding:12px 14px; border-radius:12px; outline:none;
+  border:1px solid var(--line);
+  background:#ffffff;
+  font-size:14px;
+}
+.chat-input__field::placeholder{ color:#8aa6a6; }
+.chat-input__btn{
+  padding:0 16px; border:1px solid var(--primary); cursor:pointer; font-weight:600;
+  background: var(--primary);
+  color:#043a3a; border-radius:12px;
+}
+.chat-input__btn:hover{ filter: brightness(0.98); }
+.chat-input__btn:active{ filter: brightness(0.95); }
