@@ -1,5 +1,5 @@
 // Centralized API configuration
-const BASE_URL = "https://nba-analytics-bot.onrender.com"; // deployed backend
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 export const API = {
   ask: `${BASE_URL}/ask`,
