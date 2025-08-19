@@ -39,15 +39,32 @@ llm = ChatGoogleGenerativeAI(
 BACKEND_DIR = os.path.dirname(__file__)
 
 def _discover_dataset_path() -> str:
-    for var in ("DATA_FILE", "DATA_CSV_PATH"):
+    # First, check if DATA_FILE is explicitly set in .env
+    data_file_env = os.getenv("DATA_FILE")
+    if data_file_env:
+        # Handle relative paths by joining with BACKEND_DIR
+        if os.path.isabs(data_file_env):
+            data_file_path = data_file_env
+        else:
+            data_file_path = os.path.join(BACKEND_DIR, data_file_env)
+        
+        if os.path.exists(data_file_path):
+            return data_file_path
+        else:
+            print(f"Warning: DATA_FILE from .env ({data_file_env}) does not exist at {data_file_path}")
+    
+    # Fallback to legacy DATA_CSV_PATH for backward compatibility
+    for var in ("DATA_CSV_PATH",):
         env_path = os.getenv(var)
         if env_path and os.path.exists(env_path):
             return env_path
 
+    # Default preferred file
     preferred = os.path.join(BACKEND_DIR, "nba_2024-2025_player_stats.xls")
     if os.path.exists(preferred):
         return preferred
 
+    # Search for common NBA dataset filenames
     candidates = [
         "nba_2024-2025_player_stats.xlsx",
         "nba_2024_25_per_game.csv",
@@ -60,17 +77,20 @@ def _discover_dataset_path() -> str:
         if os.path.exists(p):
             return p
 
+    # Search for any data files with common extensions
     for pattern in ("*.csv", "*.tsv", "*.xls", "*.xlsx", "*.html", "*.htm"):
         files = sorted(glob.glob(os.path.join(BACKEND_DIR, pattern)))
         if files:
             return files[0]
 
     raise RuntimeError(
-        "Could not find a dataset file. Place your NBA CSV/TSV/XLS/XLSX/HTML "
-        "in the backend folder (same dir as main.py) or set DATA_FILE in .env."
+        "Could not find a dataset file. Please set DATA_FILE in your .env file "
+        "(e.g., DATA_FILE=path/to/your/data.csv) or place your NBA CSV/TSV/XLS/XLSX/HTML "
+        "in the backend folder (same dir as main.py)."
     )
 
 DATA_FILE = _discover_dataset_path()
+print(f"Using dataset: {DATA_FILE}")
 
 def _maybe_is_html(path: str) -> bool:
     try:
