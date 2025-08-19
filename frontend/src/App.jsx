@@ -5,7 +5,6 @@ import ChatInput from "./components/ChatInput.jsx";
 import { API } from "./api.js";
 
 export default function App() {
-  // Seed with just one friendly assistant welcome message
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -32,11 +31,15 @@ export default function App() {
     setInputValue("");
     setPending(true);
 
-    // placeholder while waiting
     const placeholderId = Date.now() + 1;
     setMessages((prev) => [
       ...prev,
-      { id: placeholderId, role: "assistant", type: "text", content: "_Thinking…_" },
+      {
+        id: placeholderId,
+        role: "assistant",
+        type: "text",
+        content: "_Thinking…_",
+      },
     ]);
 
     try {
@@ -54,12 +57,12 @@ export default function App() {
       const data = await res.json();
       const answer = data?.answer ?? "I couldn't generate a response.";
 
-      // Replace placeholder with the LLM markdown answer
       setMessages((prev) =>
-        prev.map((m) => (m.id === placeholderId ? { ...m, content: answer } : m))
+        prev.map((m) =>
+          m.id === placeholderId ? { ...m, content: answer } : m
+        )
       );
 
-      // If backend returned a chart spec, append a chart message after the markdown
       if (data?.chart) {
         const chartMsg = {
           id: placeholderId + 1,
@@ -68,7 +71,7 @@ export default function App() {
           content:
             data.chart.title ||
             "Here’s a visualization based on your question.",
-          chart: data.chart, // pass full spec through
+          chart: data.chart,
         };
         setMessages((prev) => [...prev, chartMsg]);
       }
@@ -78,8 +81,9 @@ export default function App() {
           m.id === placeholderId
             ? {
                 ...m,
-                content:
-                  `**Error**: could not reach the NBA AnalyiXpert API.\n\n> ${e?.message || ""}`,
+                content: `**Error**: could not reach the NBA AnalyiXpert API.\n\n> ${
+                  e?.message || ""
+                }`,
               }
             : m
         )
@@ -101,7 +105,6 @@ export default function App() {
           </div>
         </header>
 
-        {/* scrollable messages area */}
         <section className="chat__messages">
           {messages.map((m) => (
             <ChatMessage
@@ -109,13 +112,16 @@ export default function App() {
               role={m.role}
               content={m.content}
               type={m.type}
-              chart={m.chart} // may be undefined
+              chart={m.chart}
             />
           ))}
         </section>
 
-        {/* input always pinned at bottom */}
-        <ChatInput value={inputValue} onChange={setInputValue} onSend={handleSend} />
+        <ChatInput
+          value={inputValue}
+          onChange={setInputValue}
+          onSend={handleSend}
+        />
       </main>
     </div>
   );
