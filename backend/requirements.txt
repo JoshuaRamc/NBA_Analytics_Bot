@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic
+pandas
+
+# LangChain + Gemini
+langchain
+langchain-core
+langchain-google-genai
+
+# Excel / HTML support
+xlrd        # for true .xls
+openpyxl    # for .xlsx
+lxml        # for pandas.read_html()

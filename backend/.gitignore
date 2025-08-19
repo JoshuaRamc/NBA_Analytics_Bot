@@ -1,0 +1,33 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables (store Gemini API keys here)
+.env
+.env.*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Testing / coverage
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Build / dist
+build/
+dist/
+*.egg-info/
