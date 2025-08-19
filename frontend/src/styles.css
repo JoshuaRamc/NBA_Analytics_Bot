@@ -15,6 +15,8 @@ body{
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
+  height: 100%;
+  overflow: hidden; /* prevent entire page from scrolling */
 }
 
 /* Layout */
@@ -84,11 +86,17 @@ body{
 .hint{ font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
 /* Chat area */
-.chat{ display:flex; flex-direction:column; height:100%; }
+.chat{ 
+  display:flex; 
+  flex-direction:column; 
+  height:100%; 
+  overflow: hidden; /* lock to container height */
+}
 .chat__header{
   padding:18px 22px;
   border-bottom:1px solid var(--line);
   background: #ffffff;
+  flex-shrink: 0;
 }
 .chat__title{ font-size:18px; font-weight:700; }
 .chat__sub{ font-size:13px; color:var(--muted); margin-top:2px; }
@@ -96,7 +104,7 @@ body{
 /* Messages */
 .chat__messages{
   flex:1;
-  overflow:auto;
+  overflow-y:auto; /* only this area scrolls */
   padding:22px;
   display:flex;
   flex-direction:column;
@@ -148,8 +156,11 @@ body{
 
 /* Input */
 .chat-input{
-  display:flex; gap:10px; padding:14px; border-top:1px solid var(--line);
+  display:flex; gap:10px; 
+  padding:14px; 
+  border-top:1px solid var(--line);
   background: #ffffff;
+  flex-shrink: 0; /* always visible, never shrinks */
 }
 .chat-input__field{
   flex:1; padding:12px 14px; border-radius:12px; outline:none;
