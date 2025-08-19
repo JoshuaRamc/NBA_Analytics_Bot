@@ -58,28 +58,86 @@ body{
   border-radius:16px;
   padding:16px;
 }
-.panel__title{ font-weight:600; margin-bottom:10px; }
+
+/* ---------- Improved sample questions ---------- */
+.panel__title{ font-weight:600; margin-bottom:12px; }
+
 .sample-list{
-  list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;
+  list-style:none; padding:0; margin:0;
+  display:flex; flex-direction:column; gap:10px;
 }
-.sample-list__item{
-  display:flex; align-items:flex-start; gap:10px;
-  padding:10px 10px;
-  border:1px dashed var(--line);
+
+/* <li> acts only as a wrapper */
+.sample-list__item{ margin:0; }
+
+/* Suggestion chip/button */
+.sample-btn{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid var(--line);
   border-radius:12px;
-  background: #fcffff;
-  transition: border-color .15s, background-color .15s;
-  cursor: pointer;
+  background:#fcffff;
+  color:var(--text);
+  font: 500 13.5px/1.4 "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  text-align:left;
+  cursor:pointer;
+  transition:
+    border-color .15s ease,
+    background-color .15s ease,
+    box-shadow .15s ease,
+    transform .05s ease;
 }
-.sample-list__item:hover{
+
+.sample-btn:hover{
+  background:#f8ffff;
   border-color: var(--primary);
-  background: #f8ffff;
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
 }
-.dot{
-  min-width:8px; height:8px; border-radius:50%;
-  margin-top:6px;
-  background: var(--primary-strong);
+
+.sample-btn:active{
+  transform: translateY(1px);
 }
+
+.sample-btn:focus-visible{
+  outline: 2px solid transparent; /* remove default */
+  box-shadow: 0 0 0 3px rgba(90,204,204,.35); /* soft focus ring using primary */
+  border-color: var(--primary-strong);
+}
+
+/* Leading icon container */
+.sample-btn__icon{
+  flex:0 0 auto;
+  width:26px; height:26px;
+  display:grid; place-items:center;
+  border-radius:8px;
+  background:#f7ffff;
+  border:1px solid var(--primary);
+  font-size:14px;
+}
+
+/* Text */
+.sample-btn__text{
+  flex:1 1 auto;
+  letter-spacing:.1px;
+}
+
+/* Chevron affordance */
+.sample-btn__chev{
+  flex:0 0 auto;
+  font-size:18px;
+  line-height:1;
+  opacity:.25;
+  transform: translateX(-2px);
+  transition: transform .15s ease, opacity .15s ease;
+}
+.sample-btn:hover .sample-btn__chev{
+  opacity:.6;
+  transform: translateX(0);
+}
+/* ---------- end sample questions ---------- */
 
 /* Sidebar footer panel */
 .panel--foot{ margin-top:auto; }

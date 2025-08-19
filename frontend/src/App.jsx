@@ -95,7 +95,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Sidebar />
+      <Sidebar onSelectQuestion={setInputValue} />
 
       <main className="chat">
         <header className="chat__header">
